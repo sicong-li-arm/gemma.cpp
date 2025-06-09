@@ -20,6 +20,18 @@
         "binaryDir": "${sourceDir}/build"
       },
       {
+        "name": "make-dll",
+        "inherits": "__defaults__",
+        "displayName": "Make",
+        "description": "Unix Makefiles (DLL build)",
+        "generator": "Unix Makefiles",
+        "binaryDir": "${sourceDir}/build",
+        "cacheVariables": {
+          "BUILD_SHARED_LIBS": "ON",
+          "BUILD_GEMMA_DLL": "ON"
+        }
+      },
+      {
         "name": "windows",
         "inherits": "__defaults__",
         "displayName": "Windows",
@@ -45,7 +57,7 @@
           "rhs": "Windows"
         },
         "cacheVariables": {
-          "BUILD_SHARED_LIBS": "OFF",
+          "BUILD_SHARED_LIBS": "ON",
           "CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS": "ON",
           "BUILD_GEMMA_DLL": "ON"
         }

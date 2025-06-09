@@ -156,11 +156,27 @@ set_target_properties(gemma_shared PROPERTIES
 )
 set_property(TARGET gemma_shared PROPERTY POSITION_INDEPENDENT_CODE ON)
 target_include_directories(gemma_shared PUBLIC ./)
-target_link_libraries(gemma_shared PRIVATE 
+if (CMAKE_VERSION VERSION_LESS "3.25")
+  # Manual whole‑archive wrapper for older CMake
+  if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+    target_link_options(gemma_shared PRIVATE
+      "/WHOLEARCHIVE:hwy"
+      "/WHOLEARCHIVE:hwy_contrib"
+      "/WHOLEARCHIVE:sentencepiece-static"
+    )
+  else()
+    target_link_options(gemma_shared PRIVATE
+      "-Wl,--whole-archive" hwy hwy_contrib sentencepiece-static "-Wl,--no-whole-archive"
+    )
+  endif()
+else()
+  # Modern CMake 3.25+ can do this automatically:
+  target_link_libraries(gemma_shared PRIVATE
     $<LINK_LIBRARY:WHOLE_ARCHIVE,hwy>
     $<LINK_LIBRARY:WHOLE_ARCHIVE,hwy_contrib>
     $<LINK_LIBRARY:WHOLE_ARCHIVE,sentencepiece-static>
-)
+  )
+endif()
 target_include_directories(gemma_shared PUBLIC ${sentencepiece_SOURCE_DIR})
 target_compile_definitions(gemma_shared 
     PRIVATE 
