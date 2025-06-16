@@ -20,15 +20,29 @@
         "binaryDir": "${sourceDir}/build_dev"
       },
       {
-        "name": "make-dll",
+        "name": "make-dll-release",
         "inherits": "__defaults__",
         "displayName": "Make",
         "description": "Unix Makefiles (DLL build)",
         "generator": "Unix Makefiles",
-        "binaryDir": "${sourceDir}/build_dev_dll",
+        "binaryDir": "${sourceDir}/build_dev_dll_release",
+        "cacheVariables": {
+          "BUILD_SHARED_LIBS": "OFF",
+          "BUILD_GEMMA_DLL": "ON",
+          "CMAKE_BUILD_TYPE":"Release"
+        }
+      },
+      {
+        "name": "make-dll-debug",
+        "inherits": "__defaults__",
+        "displayName": "Make",
+        "description": "Unix Makefiles (DLL build)",
+        "generator": "Unix Makefiles",
+        "binaryDir": "${sourceDir}/build_dev_dll_debug",
         "cacheVariables": {
           "BUILD_SHARED_LIBS": "ON",
-          "BUILD_GEMMA_DLL": "ON"
+          "BUILD_GEMMA_DLL": "ON",
+          "CMAKE_BUILD_TYPE":"Debug"
         }
       },
       {

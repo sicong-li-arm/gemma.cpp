@@ -1,6 +1,10 @@
 {
     "cmake.configureOnOpen": false,
     "files.associations": {
-        "array": "cpp"
+        "array": "cpp",
+        "any": "cpp",
+        "bit": "cpp",
+        "fstream": "cpp",
+        "system_error": "cpp"
     }
 }
