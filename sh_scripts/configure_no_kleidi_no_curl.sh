@@ -1,0 +1,1 @@
+cmake   -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK/build/cmake/android.toolchain.cmake   -DANDROID_ABI=arm64-v8a   -DANDROID_PLATFORM=android-28   -DCMAKE_C_FLAGS="-march=armv8.7a"   -DCMAKE_CXX_FLAGS="-march=armv8.7a"   -DGGML_OPENMP=OFF   -DGGML_LLAMAFILE=OFF  -DGGML_METAL=OFF -DLLAMA_CURL=OFF -B build-android --debug-find
