@@ -20,6 +20,22 @@
         "binaryDir": "${sourceDir}/build_dev"
       },
       {
+        "name": "android-dll-release",
+        "inherits": "__defaults__",
+        "displayName": "Make",
+        "description": "Unix Makefiles (DLL build)",
+        "generator": "Unix Makefiles",
+        "binaryDir": "${sourceDir}/build_android_arm64_dev_dll_release",
+        "cacheVariables": {
+          "BUILD_SHARED_LIBS": "ON",
+          "BUILD_GEMMA_DLL": "ON",
+          "CMAKE_BUILD_TYPE":"Release",
+          "CMAKE_TOOLCHAIN_FILE":"/home/sicli01/Android/Sdk/ndk/27.0.12077973/build/cmake/android.toolchain.cmake",
+          "ANDROID_ABI":"arm64-v8a",
+          "ANDROID_PLATFORM":"android-21"
+        }
+      },
+      {
         "name": "make-dll-release",
         "inherits": "__defaults__",
         "displayName": "Make",
@@ -27,7 +43,7 @@
         "generator": "Unix Makefiles",
         "binaryDir": "${sourceDir}/build_dev_dll_release",
         "cacheVariables": {
-          "BUILD_SHARED_LIBS": "OFF",
+          "BUILD_SHARED_LIBS": "ON",
           "BUILD_GEMMA_DLL": "ON",
           "CMAKE_BUILD_TYPE":"Release"
         }

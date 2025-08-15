@@ -141,6 +141,10 @@ set_target_properties(libgemma PROPERTIES PREFIX "")
 set_property(TARGET libgemma PROPERTY POSITION_INDEPENDENT_CODE ON)
 target_include_directories(libgemma PUBLIC ./)
 target_link_libraries(libgemma hwy hwy_contrib sentencepiece-static)
+if(ANDROID)
+    find_library(log-lib log)
+    target_link_libraries(libgemma ${log-lib})
+endif() # ANDROID
 target_include_directories(libgemma PUBLIC ${sentencepiece_SOURCE_DIR})
 target_compile_definitions(libgemma PRIVATE $<$<PLATFORM_ID:Windows>:_CRT_SECURE_NO_WARNINGS NOMINMAX>)
 target_compile_options(libgemma PRIVATE $<$<PLATFORM_ID:Windows>:-Wno-deprecated-declarations>)
@@ -176,7 +180,11 @@ else()
     $<LINK_LIBRARY:WHOLE_ARCHIVE,hwy_contrib>
     $<LINK_LIBRARY:WHOLE_ARCHIVE,sentencepiece-static>
   )
-endif()
+endif() # CMAKE_VERSION VERSION_LESS "3.25"
+if(ANDROID)
+    find_library(log-lib log)
+    target_link_libraries(gemma_shared ${log-lib})
+endif() # ANDROID
 target_include_directories(gemma_shared PUBLIC ${sentencepiece_SOURCE_DIR})
 target_compile_definitions(gemma_shared 
     PRIVATE 
@@ -187,7 +195,7 @@ target_compile_options(gemma_shared PRIVATE $<$<PLATFORM_ID:Windows>:-Wno-deprec
 install(TARGETS gemma_shared DESTINATION lib)
 install(FILES gemma/c_api.h DESTINATION include/gemma)
 install(FILES gemma/GemmaInterop.cs DESTINATION include/gemma)
-endif()
+endif() # BUILD_GEMMA_DLL
 
 # Executable Target
 
