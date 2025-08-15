@@ -1,0 +1,1 @@
+./gemma --tokenizer /home/sicli01/Projects/gemma.cpp/model_weights/gemma-3-gemmacpp-3.0-1b-it-sfp-v1/tokenizer.spm --weights /home/sicli01/Projects/gemma.cpp/model_weights/gemma-3-gemmacpp-3.0-1b-it-sfp-v1/1b-it-sfp.sbs --model gemma3-1b
