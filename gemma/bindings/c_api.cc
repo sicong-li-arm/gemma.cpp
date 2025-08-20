@@ -34,7 +34,12 @@ GEMMA_API GemmaContext* GemmaCreate(const char* tokenizer_path,
   }
 }
 
-GEMMA_API void GemmaDestroy(GemmaContext* ctx) { delete ctx; }
+GEMMA_API void GemmaDestroy(GemmaContext* ctx) {
+  // Invalidate the ThreadingContext2 singleton, otherwise a second call to GemmaCreate would fail the assert in ThreadingContext2::SetArgs
+  // This allows the resetting of thread arguments between every GemmaCreate
+  gcpp::ThreadingContext2::ThreadHostileInvalidate();
+  delete ctx;
+}
 
 GEMMA_API int GemmaGenerate(GemmaContext* ctx, const char* prompt, char* output,
                             int max_length, GemmaTokenCallback callback,
