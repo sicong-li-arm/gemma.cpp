@@ -183,7 +183,7 @@ else()
 endif() # CMAKE_VERSION VERSION_LESS "3.25"
 if(ANDROID)
     find_library(log-lib log)
-    target_link_libraries(gemma_shared ${log-lib})
+    target_link_libraries(gemma_shared PRIVATE ${log-lib})
 endif() # ANDROID
 target_include_directories(gemma_shared PUBLIC ${sentencepiece_SOURCE_DIR})
 target_compile_definitions(gemma_shared 
