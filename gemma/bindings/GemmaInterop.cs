@@ -83,6 +83,8 @@ namespace GemmaCpp
 
         [DllImport("gemma", CallingConvention = CallingConvention.Cdecl)]
         private static extern void GemmaSetMultiturn(IntPtr context, int value);
+        [DllImport("gemma", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void GemmaSetEnableStopAtEOS(IntPtr context, int value);
 
         [DllImport("gemma", CallingConvention = CallingConvention.Cdecl)]
         private static extern void GemmaSetTemperature(IntPtr context, float value);
@@ -177,6 +179,18 @@ namespace GemmaCpp
 
             GemmaSetMultiturn(_context, enable ? 1 : 0);
             Debug.WriteLine($"Gemma: Set multiturn to {(enable ? "enabled" : "disabled")}");
+        }
+
+        public void SetEnableStopAtEOS(bool enable)
+        {
+            if (_disposed)
+                throw new ObjectDisposedException(nameof(Gemma));
+
+            if (_context == IntPtr.Zero)
+                throw new GemmaException("Gemma context is invalid");
+
+            GemmaSetEnableStopAtEOS(_context, enable ? 1 : 0);
+            Debug.WriteLine($"Gemma: Set enable_stop_at_eos to {(enable ? "enabled" : "disabled")}");
         }
 
         public void SetTemperature(float temperature)

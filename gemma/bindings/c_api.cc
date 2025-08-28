@@ -82,6 +82,11 @@ GEMMA_API void GemmaSetMultiturn(GemmaContext* ctx, int value) {
   ctx->SetMultiturn(value);
 }
 
+GEMMA_API void GemmaSetEnableStopAtEOS(GemmaContext* ctx, int value) {
+  if (!ctx) return;
+  ctx->SetEnableStopAtEOS(value);
+}
+
 GEMMA_API void GemmaSetTemperature(GemmaContext* ctx, float value) {
   if (!ctx) return;
   ctx->SetTemperature(value);

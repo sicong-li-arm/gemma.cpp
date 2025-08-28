@@ -135,6 +135,10 @@ struct RuntimeConfig {
 
   // End-of-sequence token.
   int eos_id = EOS_ID;
+  // Whether to stop generation at EOS token; default is true;
+  // when false, generation continues until max tokens,
+  // which is useful for benchmarking
+  bool enable_stop_at_eos = true;
 };
 
 struct TimingInfo {

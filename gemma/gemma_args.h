@@ -160,6 +160,7 @@ struct InferenceArgs : public ArgsBase<InferenceArgs> {
 
   std::string prompt;  // Added prompt flag for non-interactive mode
   std::string eot_line;
+  bool enable_stop_at_eos = true;
 
   // Returns error string or nullptr if OK.
   const char* Validate() const {
@@ -211,6 +212,11 @@ struct InferenceArgs : public ArgsBase<InferenceArgs> {
         "before the line where only the given string appears.\n    Default = "
         "When a newline is encountered, that signals the end of the turn.",
         2);
+
+    visitor(enable_stop_at_eos, "enable_stop_at_eos", true,
+        "Whether to stop generation at EOS token; default is true; "
+        "when false, generation continues until max tokens, "
+        "which is useful for benchmarking.");
   }
 
   void CopyTo(RuntimeConfig& runtime_config) const {
@@ -232,6 +238,7 @@ struct InferenceArgs : public ArgsBase<InferenceArgs> {
 
     runtime_config.temperature = temperature;
     runtime_config.top_k = top_k;
+    runtime_config.enable_stop_at_eos = enable_stop_at_eos;
   }
 };
 

@@ -1395,8 +1395,10 @@ bool DecodeStepT(const ModelWeightsPtrs<T>& weights,
     timing_info.NotifyGenerated();
 
     const bool is_eos =
-        token_streamer(query_idx_start + query_idx,
-                       queries_mutable_pos[query_idx], tp.token, tp.prob);
+        runtime_config.enable_stop_at_eos
+            ? token_streamer(query_idx_start + query_idx,
+                             queries_mutable_pos[query_idx], tp.token, tp.prob)
+            : false;
     all_queries_eos &= is_eos;
     gen_tokens[query_idx] = is_eos ? runtime_config.eos_id : tp.token;
   }

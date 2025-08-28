@@ -88,6 +88,13 @@ class GemmaContext {
     LogDebug("Setting max_generated_tokens to configured value");
   }
 
+  // Set enable_stop_at_eos flag (0 = disabled, 1 = enabled)
+  void SetEnableStopAtEOS(int value) {
+    inference_args.enable_stop_at_eos = static_cast<bool>(value);
+    LogDebug("Setting enable_stop_at_eos to configured value");
+  }
+
+
   // Set multiturn flag (0 = disabled, 1 = enabled)
   void SetMultiturn(int value) {
     inference_args.multiturn = value;
