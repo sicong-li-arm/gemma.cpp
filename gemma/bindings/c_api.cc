@@ -24,10 +24,10 @@ extern "C" {
 GEMMA_API GemmaContext* GemmaCreate(const char* tokenizer_path,
                                     const char* model_type,
                                     const char* weights_path,
-                                    const char* weight_type, int max_length) {
+                                    const char* weight_type, int max_length, int max_threads) {
   try {
     GemmaContext* ctx = GemmaContext::Create(
-        tokenizer_path, model_type, weights_path, weight_type, max_length);
+        tokenizer_path, model_type, weights_path, weight_type, max_length, max_threads);
     return ctx;
   } catch (...) {
     return nullptr;

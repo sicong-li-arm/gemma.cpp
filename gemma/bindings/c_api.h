@@ -44,7 +44,7 @@ typedef void (*GemmaLogCallback)(const char* message, void* user_data);
 GEMMA_API GemmaContext* GemmaCreate(const char* tokenizer_path,
                                     const char* model_type,
                                     const char* weights_path,
-                                    const char* weight_type, int max_length);
+                                    const char* weight_type, int max_length, int max_threads=0); // max_threads default to 0 (no limit)
 GEMMA_API void GemmaDestroy(GemmaContext* ctx);
 GEMMA_API int GemmaGenerate(GemmaContext* ctx, const char* prompt, char* output,
                             int max_length, GemmaTokenCallback callback,

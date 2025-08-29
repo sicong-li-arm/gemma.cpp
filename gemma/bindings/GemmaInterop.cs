@@ -35,7 +35,7 @@ namespace GemmaCpp
             [MarshalAs(UnmanagedType.LPUTF8Str)] string modelType,
             [MarshalAs(UnmanagedType.LPUTF8Str)] string weightsPath,
             [MarshalAs(UnmanagedType.LPUTF8Str)] string weightType,
-            int maxLength);
+            int maxLength, int maxThreads);
 
         [DllImport("gemma", CallingConvention = CallingConvention.Cdecl)]
         private static extern void GemmaDestroy(IntPtr context);
@@ -137,9 +137,9 @@ namespace GemmaCpp
         private GCHandle _logCallbackHandle;
         private bool _loggingEnabled = false;
 
-        public Gemma(string tokenizerPath, string modelType, string weightsPath, string weightType, int maxLength = 8192)
+        public Gemma(string tokenizerPath, string modelType, string weightsPath, string weightType, int maxLength = 8192, int maxThreads = 0)
         {
-            _context = GemmaCreate(tokenizerPath, modelType, weightsPath, weightType, maxLength);
+            _context = GemmaCreate(tokenizerPath, modelType, weightsPath, weightType, maxLength, maxThreads);
             if (_context == IntPtr.Zero)
             {
                 throw new GemmaException("Failed to create Gemma context");

@@ -62,7 +62,7 @@ class GemmaContext {
  public:
   static GemmaContext* Create(const char* tokenizer_path,
                               const char* model_type, const char* weights_path,
-                              const char* weight_type, int max_length);
+                              const char* weight_type, int max_length, int max_threads = 0);
 
   // Returns length of generated text, or -1 on error
   int Generate(const char* prompt_string, char* output, int max_length,

@@ -53,7 +53,7 @@ void* GemmaContext::s_log_user_data = nullptr;
 GemmaContext* GemmaContext::Create(const char* tokenizer_path,
                                    const char* model_type,
                                    const char* weights_path,
-                                   const char* weight_type, int max_length) {
+                                   const char* weight_type, int max_length, int max_threads) {
   std::stringstream ss;
   ss << "Creating GemmaContext with tokenizer_path: "
      << (tokenizer_path ? tokenizer_path : "null")
@@ -65,6 +65,7 @@ GemmaContext* GemmaContext::Create(const char* tokenizer_path,
 
   ThreadingArgs threading_args;
   threading_args.spin = gcpp::Tristate::kFalse;
+  threading_args.max_threads = max_threads;
 
   LoaderArgs loader(tokenizer_path, weights_path, model_type);
   loader.weight_type_str = weight_type;
